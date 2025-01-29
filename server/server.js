@@ -9,8 +9,13 @@ const socket = new Server(httpServer, {
 
 socket.on("connection", (socket) => {
   console.log(socket);
+
+  socket.on("message", (data) => {
+    console.log(data);
+  });
+  socket.emit("message", "Hello");
 });
 
 httpServer.listen(3000, () => {
-  console.log("server is connected");
+  //   console.log("server is connected");
 });
