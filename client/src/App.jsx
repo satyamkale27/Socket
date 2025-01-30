@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import Input from "./components/Input";
 function App() {
   const [score, setScores] = useState({});
+  const [getscores, setGetscores] = useState([]);
 
   const socket = io("http://localhost:3000");
 
@@ -21,7 +22,9 @@ function App() {
   function sendScores() {
     socket.emit("Scores", score);
     socket.on("playerScores", (playerScores) => {
+      // get the scores from server
       console.log(playerScores);
+      setGetscores(playerScores);
     });
   }
 
@@ -42,6 +45,20 @@ function App() {
         name="score"
       />
       <button onClick={sendScores}>publish</button>
+      <table>
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <th>Score</th>
+          </tr>
+          {getscores.map((scor, index) => (
+            <tr key={index}>
+              <th>{scor?.name}</th>
+              <th>{scor?.score}</th>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 }

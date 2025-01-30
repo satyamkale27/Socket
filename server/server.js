@@ -15,10 +15,6 @@ io.on("connection", (socket) => {
     console.log(playerScores);
     socket.emit("playerScores", playerScores); // send scores back to client
   });
-
-  setInterval(() => {
-    socket.emit("playerScores", playerScores); // sends score to client every 5 secs
-  }, 5000);
 });
 httpServer.listen(3000, () => {
   console.log("server is connected");
